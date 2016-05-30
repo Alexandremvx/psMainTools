@@ -10,6 +10,8 @@ Function Connect-DomainDrive {
   [System.Management.Automation.CredentialAttribute()]$Credential,
   [switch]$Force = $false
  )
+ $customParam = @{}
+ if ($Credential) {$customParam["Credential"] = $Credential}
  $DomainDrive = Get-PSDrive $Domain -ErrorAction SilentlyContinue
  $CreateDomainDrive = $false
  if ($DomainDrive.Provider.Name -eq "ActiveDirectory") {
@@ -30,8 +32,7 @@ Function Connect-DomainDrive {
   $CreateDomainDrive = $true
  }
  if ($CreateDomainDrive) {
-  if ($Credential) {$paramCredential = @{ Credential = $Credential}
-  New-PSDrive -Name $Domain -PSProvider ActiveDirectory -Root "" -Server $Server @paramCredential -Scope Global
+  New-PSDrive -Name $Domain -PSProvider ActiveDirectory -Root "" -Server $Server @customParam -Scope Global
  }
  Set-Location "$Domain`:"
 }
