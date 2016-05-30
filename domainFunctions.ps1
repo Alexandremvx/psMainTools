@@ -29,13 +29,11 @@ Function Connect-DomainDrive {
  } else {
   $CreateDomainDrive = $true
  }
-
  if ($CreateDomainDrive) {
-  New-PSDrive -Name $Domain -PSProvider ActiveDirectory -Root "" -Server $Server -Credential $Credential -Scope Global
+  if ($Credential) {$paramCredential = @{ Credential = $Credential}
+  New-PSDrive -Name $Domain -PSProvider ActiveDirectory -Root "" -Server $Server @paramCredential -Scope Global
  }
-
  Set-Location "$Domain`:"
-
 }
 
 Function Disconnect-DomainDrive {
