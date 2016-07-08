@@ -1,5 +1,6 @@
 ﻿#Requires -Version 3.0 -Modules ActiveDirectory
 #Domain functions (alpha*)
+if (-not (get-module -Name ActiveDirectory)) {import-module -Name ActiveDirectory -ErrorAction Stop -Scope Global}
 
 Function Connect-DomainDrive {
  Param (
