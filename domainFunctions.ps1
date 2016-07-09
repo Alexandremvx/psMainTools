@@ -1,6 +1,13 @@
 ﻿#Requires -Version 3.0 -Modules ActiveDirectory
-#Domain functions (alpha*)
-if (-not (get-module -Name ActiveDirectory)) {import-module -Name ActiveDirectory -ErrorAction Stop -Scope Global}
+#Domain functions (Beta*)
+
+#Import modules needed
+if (-not (get-module -Name ActiveDirectory)) {
+ import-module -Name ActiveDirectory -ErrorAction Stop -Scope Global
+ Write-Verbose "ActiveDirectory module loaded"
+} else {
+ Write-Verbose "ActiveDirectory module already loaded"
+}
 
 Function Connect-DomainDrive {
  Param (
